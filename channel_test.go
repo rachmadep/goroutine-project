@@ -88,3 +88,23 @@ func TestBufferedChannel(t *testing.T) {
 
 	fmt.Println("Done with buffered channel")
 }
+
+func TestRangeChannel(t *testing.T) {
+	channel := make(chan string)
+
+	go func() {
+		for i := 0; i < 10; i++ {
+			channel <- fmt.Sprintf("Message %d", i)
+		}
+
+		time.Sleep(1 * time.Second) // Simulate some work
+		close(channel) // Close the channel when done
+		fmt.Println("Channel closed")
+	}()
+
+	for data := range channel {
+		fmt.Println("Received message:", data)
+	}
+
+	fmt.Println("Done with range channel")
+}
