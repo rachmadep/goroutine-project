@@ -20,8 +20,8 @@ func TestPool(t *testing.T) {
 	pool.Put("Hello, Pool 3!")
 
 	for i := 0; i < 20; i++ {
+		group.Add(1)
 		go func() {
-			group.Add(1)
 			item := pool.Get()
 			fmt.Println(item)
 			time.Sleep(1 * time.Second)
